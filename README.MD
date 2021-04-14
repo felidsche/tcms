@@ -1,4 +1,19 @@
-## Start Cluster
+# TCMS
+A Traffic Control Management System using Microservices
+This system controls the traffic lights in a fictious city.
+
+## System Use Cases
+Interactors of the system are (see Figure below):
+- Emergency vehices
+- The Major of the fictious city
+- Operational staff 
+- possible attackers
+![gsm_cases](https://user-images.githubusercontent.com/29780475/114725942-399ba680-9d3d-11eb-8e47-937369b0b520.jpeg)
+
+## System Components
+![ssas_group6_sec_design_component](https://user-images.githubusercontent.com/29780475/114726022-491aef80-9d3d-11eb-955b-4e8ed012cb90.png)
+
+## Start the System using Minikube
 `minikube start`
 
 ### Start with Auditing
