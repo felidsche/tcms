@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lights-nsc2 # North South Car 2
+  labels:
+    app: lights-nsc2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lights-nsc2
+  template:
+    metadata:
+      labels:
+        app: lights-nsc2
+    spec:
+      containers:
+      - name: lights-nsc2
+        image: softsecgroup6/lights
+        ports:
+        - containerPort: 8080
+        env:
+          - name: ID
+            value: "NSC2"

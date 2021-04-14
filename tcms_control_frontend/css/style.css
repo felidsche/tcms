@@ -1,0 +1,133 @@
+html, body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+div#app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+div#app .search-wrapper {
+  position: relative;
+}
+div#app .topButtons {
+  padding-left: 100px;
+}
+div#app .masterButtons {
+  padding-top: 10px;
+  padding-left: 0px;
+}
+div#app .search-wrapper input {
+  padding: 4px 12px;
+  color: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  transition: .15s all ease-in-out;
+  background: white;
+}
+div#app .search-wrapper input:focus {
+  outline: none;
+}
+div#app .search-wrapper input::-webkit-input-placeholder {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 100;
+}
+div#app .wrapper {
+  display: flex;
+  max-width: 900px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+}
+div#app .card {
+  box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+  width: 200px;
+  margin: 12px;
+  transition: .15s all ease-in-out;
+  text-decoration: none;
+  padding: 12px;
+  font-size: 24px;
+  color: #585858;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+}
+
+div#app .red {
+  background-color: red;
+}
+div#app .green {
+  background-color: green;
+}
+div#app .emergency {
+  -webkit-animation: EMERGENCY 1s infinite;  /* Safari 4+ */
+  -moz-animation: EMERGENCY 1s infinite;  /* Fx 5+ */
+  -o-animation: EMERGENCY 1s infinite;  /* Opera 12+ */
+  animation: EMERGENCY 1s infinite;  /* IE 10+, Fx 29+ */
+}
+
+@-webkit-keyframes EMERGENCY {
+  0%, 49% {
+    background-color: orange;
+    border: 3px solid black;
+  }
+  50%, 100% {
+    background-color: black;
+    border: 3px solid orange;
+  }
+}
+
+div#app .sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index:100;
+}
+.dot {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  display: flex;
+  align-self: flex-start;
+}
+div#app .card p {
+  font-size: 20px;
+  color: #236B5D;
+}
+div#app .card .smallish {
+  font-size: 16px;
+  color: grey;
+}
+div#app .card .supersmall {
+  font-size: 14px;
+  text-align: center;
+  color: #236B5D;
+}
+div#app .card:hover {
+  transform: scale(1.1);
+}
+div#app .card img {
+  padding: 12px;
+  height: 100px;
+  width: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+div#app .modal-body img {
+  padding: 12px;
+  height: 100px;
+  width: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+div#app .card a small {
+  font-size: 14px;
+  padding: 4px;
+}

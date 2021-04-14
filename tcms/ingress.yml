@@ -1,0 +1,103 @@
+apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+kind: Ingress
+metadata:
+  name: lights-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  tls:
+    - secretName: tcms-com-tls
+    - hosts:
+        - tcms.com
+  rules:
+    - host: tcms.com
+      http:
+        paths:
+          - path: /lights-ewc1
+            backend:
+              serviceName: lights-ewc1
+              servicePort: 8080
+
+          - path: /lights-ewc2
+            backend:
+              serviceName: lights-ewc2
+              servicePort: 8080
+
+          - path: /lights-ewp1
+            backend:
+              serviceName: lights-ewp1
+              servicePort: 8080
+
+          - path: /lights-ewp2
+            backend:
+              serviceName: lights-ewp2
+              servicePort: 8080
+
+          - path: /lights-nsc1
+            backend:
+              serviceName: lights-nsc1
+              servicePort: 8080
+
+          - path: /lights-nsc2
+            backend:
+              serviceName: lights-nsc2
+              servicePort: 8080
+
+          - path: /lights-nsp1
+            backend:
+              serviceName: lights-nsp1
+              servicePort: 8080
+
+          - path: /lights-nsp2
+            backend:
+              serviceName: lights-nsp2
+              servicePort: 8080
+
+          - path: /lights-snc1
+            backend:
+              serviceName: lights-snc1
+              servicePort: 8080
+
+          - path: /lights-snc2
+            backend:
+              serviceName: lights-snc2
+              servicePort: 8080
+
+          - path: /lights-snp1
+            backend:
+              serviceName: lights-snp1
+              servicePort: 8080
+
+          - path: /lights-snp2
+            backend:
+              serviceName: lights-snp2
+              servicePort: 8080
+
+          - path: /lights-wec1
+            backend:
+              serviceName: lights-wec1
+              servicePort: 8080
+
+          - path: /lights-wec2
+            backend:
+              serviceName: lights-wec2
+              servicePort: 8080
+
+          - path: /lights-wep1
+            backend:
+              serviceName: lights-wep1
+              servicePort: 8080
+
+          - path: /lights-wep2
+            backend:
+              serviceName: lights-wep2
+              servicePort: 8080
+
+          - path: /tcms/*
+            backend:
+              serviceName: tcms
+              servicePort: 8080
+          - path: /vehicle/*
+            backend:
+              serviceName: vehicle
+              servicePort: 8080

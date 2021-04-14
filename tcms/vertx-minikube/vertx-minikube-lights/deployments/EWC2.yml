@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lights-ewc2 # East West Car 2
+  labels:
+    app: lights-ewc2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lights-ewc2
+  template:
+    metadata:
+      labels:
+        app: lights-ewc2
+    spec:
+      containers:
+      - name: lights-ewc2
+        image: softsecgroup6/lights
+        ports:
+        - containerPort: 8080
+        env:
+          - name: ID
+            value: "EWC2"

@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lights-tcms # TCMS
+  labels:
+    app: lights-tcms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lights-tcms
+  template:
+    metadata:
+      labels:
+        app: lights-tcms
+    spec:
+      containers:
+      - name: lights-tcms
+        image: softsecgroup6/tcms
+        ports:
+        - containerPort: 8080
+        env:
+          - name: ID
+            value: "TCMS"
+          - name: TCMS_SECRET_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: tcms-secret
+                key: username
+          - name: TCMS_SECRET_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: tcms-secret
+                key: password
+        volumeMounts:
+          # name must match the volume name below
+          - name: secret-volume
+            mountPath: /etc/secret-volume
+      # The secret data is exposed to Containers in the Pod through a Volume.
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: tcms-secret
+

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vehicle
+  labels:
+    app: vehicle
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vehicle
+  template:
+    metadata:
+      labels:
+        app: vehicle
+    spec:
+      containers:
+      - name: vehicle
+        image: softsecgroup6/vehicle
+        ports:
+        - containerPort: 8080
+        env:
+          - name: ID
+            value: "Vehicle"
+          - name: VEHICLE_SECRET_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: vehicle-secret
+                key: username
+          - name: VEHICLE_SECRET_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: vehicle-secret
+                key: password
+        volumeMounts:
+        # name must match the volume name below
+          - name: secret-volume
+            mountPath: /etc/secret-volume
+      # The secret data is exposed to Containers in the Pod through a Volume.
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: vehicle-secret

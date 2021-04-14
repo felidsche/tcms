@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lights-snc2 # South North Car 2
+  labels:
+    app: lights-snc2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lights-snc2
+  template:
+    metadata:
+      labels:
+        app: lights-snc2
+    spec:
+      containers:
+      - name: lights-snc2
+        image: softsecgroup6/lights
+        ports:
+        - containerPort: 8080
+        env:
+          - name: ID
+            value: "SNC2"

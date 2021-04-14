@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lights-wep1 # West East Ped 1
+  labels:
+    app: lights-wep1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lights-wep1
+  template:
+    metadata:
+      labels:
+        app: lights-wep1
+    spec:
+      containers:
+      - name: lights-wep1
+        image: softsecgroup6/lights
+        ports:
+        - containerPort: 8080
+        env:
+          - name: ID
+            value: "WEP1"

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lights-wep2 # West Eas Ped 2
+  labels:
+    app: lights-wep2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lights-wep2
+  template:
+    metadata:
+      labels:
+        app: lights-wep2
+    spec:
+      containers:
+      - name: lights-wep2
+        image: softsecgroup6/lights
+        ports:
+        - containerPort: 8080
+        env:
+          - name: ID
+            value: "WEP2"

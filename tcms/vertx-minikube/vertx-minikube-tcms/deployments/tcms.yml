@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tcms
+  labels:
+    app: tcms
+    name: tcms
+spec:
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: tcms
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tcms
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: tcms
+  template:
+    metadata:
+      labels:
+        app: tcms
+    spec:
+      containers:
+        - name: tcms
+          image: tcms
+          env:
+            - name: KEYCLOAK_URL
+              value: $KEYCLOAK_HOST
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: https
+              containerPort: 8443

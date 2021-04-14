@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: tcms-ingress
+spec:
+  tls:
+    - hosts:
+        - TCMS_HOST
+  rules:
+    - host: TCMS_HOST
+      http:
+        paths:
+          - backend:
+              serviceName: tcms
+              servicePort: 8080

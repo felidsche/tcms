@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>TCMS overview page</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div id="app">
+    <div class="sticky">
+      <div class="topButtons">
+        <button @click="showTcmsUrl()" class="btn btn-info"><i class="fas fa-desktop"></i> Set TCMS URL</button>
+        <button @click="showVehicleUrl()" class="btn btn-info"><i class="fas fa-car"></i> Set Vehicle URL</button>
+      </div>
+      <div class="masterButtons">
+        <button @click="triggerEmergency()" class="btn btn-primary"><i class="fas fa-exclamation-triangle"></i> Trigger Emergency</button>
+        <button @click="endEmergency()" class="btn btn-primary"><i class="fas fa-check-circle"></i> End Emergency</button>
+        <button @click="showLightRequestModal()" class="btn btn-primary"><i class="fas fa-traffic-light"></i> Request Green Light</button>
+      </div>
+    </div>
+    <div id="tcms-url-modal" class="modal fade">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              TCMS URL
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </h5>
+          </div>
+          <div class="modal-body">
+            <p>Current TCMS URL: {{ tcms_url }}</p>
+            <input id="tcms-url-input" class="form-control" type="text" placeholder="http://192.168.99.101:30742" v-model="tcms_url_input">
+            <div v-if="invalidTcmsUrl">
+              This is not a valid URL
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button @click="setTcmsUrl()" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Set TCMS URL</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="vehicle-url-modal" class="modal fade">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Vehicle URL
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </h5>
+          </div>
+          <div class="modal-body">
+            <p>Current Vehicle URL: {{ vehicle_url }}</p>
+            <input id="vehicle-url-input" class="form-control" type="text" placeholder="http://192.168.99.101:30742" v-model="vehicle_url_input">
+            <div v-if="invalidVehicleUrl">
+              This is not a valid URL
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button @click="setVehicleUrl()" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Set Vehicle URL</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="light-request-modal" class="modal fade">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Request Green Light
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </h5>
+          </div>
+          <div class="modal-body">
+            <p>Current Vehicle URL: {{ vehicle_url }}</p>
+            <button @click="requestGreenLight('ewc1')" type="button" class="btn btn-primary"><i class="fas fa-ambulance"></i> EWC1</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button @click="requestGreenLight('ewc2')" type="button" class="btn btn-primary"><i class="fas fa-ambulance"></i> EWC2</button><br><br>
+            <button @click="requestGreenLight('nsc1')" type="button" class="btn btn-primary"><i class="fas fa-ambulance"></i> NSC1</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button @click="requestGreenLight('nsc2')" type="button" class="btn btn-primary"><i class="fas fa-ambulance"></i> NSC2</button><br><br>
+            <button @click="requestGreenLight('snc1')" type="button" class="btn btn-primary"><i class="fas fa-ambulance"></i> SNC1</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button @click="requestGreenLight('snc2')" type="button" class="btn btn-primary"><i class="fas fa-ambulance"></i> SNC2</button><br><br>
+            <button @click="requestGreenLight('wec1')" type="button" class="btn btn-primary"><i class="fas fa-ambulance"></i> WEC1</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button @click="requestGreenLight('wec2')" type="button" class="btn btn-primary"><i class="fas fa-ambulance"></i> WEC2</button><br><br>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="card" @click="itemClicked(light)" v-for="light in lights" v-bind:class="[light.color]">
+        <p>{{ light.name }}</p>
+        <p>{{ light.state }}</p>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="js/light.js"></script>
+  <script src="js/index.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</body>
+</html>
